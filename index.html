@@ -8,8 +8,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-  
+
     const firebaseConfig = {
       apiKey: "AIzaSyDwxJbssMPe-vWI9s0zTyNPkZVdlVts95M",
       authDomain: "esp32gps-8bf29.firebaseapp.com",
@@ -22,25 +21,10 @@
   
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
-    const auth = getAuth(app);
   
     let map;
     let firstLocationSet = false;
     let markers = [];
-  
-    function authenticateAndInit() {
-      const email = "patinoabram@gmail.com";
-      const password = "GPSEmbedded";
-  
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Authenticated as:", userCredential.user.email);
-          loadGoogleMaps();
-        })
-        .catch((error) => {
-          console.error("Error during authentication:", error.message);
-        });
-    }
   
     function loadGoogleMaps() {
       const script = document.createElement("script");
@@ -104,7 +88,7 @@
     }
   
     function updateMenuData(data) {
-      document.getElementById("gps-data").innerHTML = `
+      document.getElementById("gps-data").innerHTML = ` 
         <strong>Date:</strong> ${data.date || "N/A"}</p>
         <strong>Time:</strong> ${data.time || "N/A"}</p>
         <strong>Latitude:</strong> ${data.lat || "N/A"}</p>
@@ -115,7 +99,7 @@
       `;
     }
   
-    authenticateAndInit();
+    loadGoogleMaps();
   </script>
 
   <script>
@@ -205,7 +189,6 @@
       margin-top: 10px;
       text-align: left;
     }
-
     strong {
       color: #FFD700;
     }
